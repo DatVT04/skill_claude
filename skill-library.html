@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Library — Claude SME Vietnam</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#f0f2f5;color:#333}
+:root{
+  --bgd:#4f46e5;--hr:#0ea5e9;--sales:#ef4444;--mkt:#f97316;
+  --cskh:#14b8a6;--log:#3b82f6;--sx:#22c55e;--it:#8b5cf6;
+  --pr:#ec4899;--xnk:#f59e0b;--phap:#6b7280;--rd:#10b981;
+  --admin:#f43f5e;--kt:#06b6d4;--mh:#a855f7;--tc:#1d4ed8;
+}
+header{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4338ca 100%);color:#fff;padding:40px 30px;text-align:center}
+header h1{font-size:2.2rem;font-weight:800;margin-bottom:8px}
+header p{font-size:1.05rem;opacity:.85;margin-bottom:24px}
+.stats-row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,.15);border-radius:12px;padding:14px 28px;text-align:center}
+.stat-num{font-size:2rem;font-weight:800}
+.stat-label{font-size:.78rem;opacity:.8;text-transform:uppercase;letter-spacing:.05em}
+nav.dept-nav{background:#fff;border-bottom:2px solid #e5e7eb;padding:0 20px;display:flex;gap:4px;flex-wrap:wrap;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+nav.dept-nav a{display:block;padding:12px 14px;text-decoration:none;color:#555;font-size:.82rem;font-weight:600;border-bottom:3px solid transparent;white-space:nowrap;transition:color .2s}
+nav.dept-nav a:hover{color:#4338ca}
+nav.dept-nav a.active{color:#4338ca;border-bottom-color:#4338ca}
+.container{max-width:1200px;margin:0 auto;padding:30px 20px}
+.section{margin-bottom:48px}
+.section-title{font-size:1.5rem;font-weight:800;margin-bottom:20px;color:#1e1b4b;border-left:5px solid #4338ca;padding-left:14px}
+
+/* INSTALL GUIDE */
+.guide-box{background:#fff;border-radius:16px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.guide-box h2{font-size:1.3rem;font-weight:700;margin-bottom:20px;color:#1e1b4b}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.step{background:#f8fafc;border-radius:12px;padding:18px;border-left:4px solid #4338ca}
+.step-num{display:inline-flex;width:28px;height:28px;border-radius:50%;background:#4338ca;color:#fff;font-size:.8rem;font-weight:700;align-items:center;justify-content:center;margin-bottom:10px}
+.step h3{font-size:.9rem;font-weight:700;margin-bottom:6px;color:#1e1b4b}
+.step p{font-size:.82rem;color:#555;line-height:1.55}
+.step code{background:#e0e7ff;color:#3730a3;padding:1px 6px;border-radius:4px;font-size:.78rem}
+.usage-box{background:linear-gradient(135deg,#ede9fe,#dbeafe);border-radius:16px;padding:28px;margin-top:20px}
+.usage-box h2{font-size:1.3rem;font-weight:700;margin-bottom:16px;color:#1e1b4b}
+.usage-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.usage-item{background:#fff;border-radius:10px;padding:14px}
+.usage-item .label{font-size:.75rem;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.usage-item p{font-size:.83rem;color:#374151;line-height:1.55}
+.usage-item .example{background:#f3f4f6;border-radius:6px;padding:8px 10px;margin-top:8px;font-size:.8rem;color:#1e1b4b;font-style:italic}
+
+/* DEPT SECTION */
+.dept-section{margin-bottom:40px}
+.dept-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:14px 18px;border-radius:12px;color:#fff}
+.dept-header h2{font-size:1.15rem;font-weight:700}
+.dept-count{background:rgba(255,255,255,.25);border-radius:20px;padding:3px 12px;font-size:.78rem;font-weight:700}
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.skill-card{background:#fff;border-radius:10px;padding:14px 16px;border-top:3px solid #4338ca;box-shadow:0 1px 4px rgba(0,0,0,.06);transition:transform .15s,box-shadow .15s}
+.skill-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.skill-name{font-size:.92rem;font-weight:700;color:#1e1b4b;margin-bottom:4px}
+.skill-id{font-size:.72rem;color:#9ca3af;font-family:monospace;margin-bottom:6px}
+.skill-desc{font-size:.79rem;color:#555;line-height:1.5}
+.skill-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.tag{background:#ede9fe;color:#5b21b6;font-size:.68rem;padding:2px 7px;border-radius:10px}
+footer{background:#1e1b4b;color:rgba(255,255,255,.7);text-align:center;padding:24px;font-size:.82rem}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📚 Skill Library — Claude SME Vietnam</h1>
+  <p>Thư viện kỹ năng toàn diện cho doanh nghiệp vừa và nhỏ Việt Nam</p>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-num">165</div><div class="stat-label">Skills</div></div>
+    <div class="stat"><div class="stat-num">16</div><div class="stat-label">Phòng ban</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Tiếng Việt</div></div>
+    <div class="stat"><div class="stat-num">SME</div><div class="stat-label">Context VN</div></div>
+  </div>
+</header>
+
+<nav class="dept-nav">
+  <a href="#install">🔧 Cài đặt</a>
+  <a href="#usage">💬 Cách dùng</a>
+  <a href="#bgd">🏛 BGĐ</a>
+  <a href="#tc">💰 Tài chính</a>
+  <a href="#hr">👥 HR</a>
+  <a href="#sales">🎯 Sales</a>
+  <a href="#mkt">📣 Marketing</a>
+  <a href="#pr">📡 PR</a>
+  <a href="#cskh">💬 CSKH</a>
+  <a href="#rd">🔬 R&D</a>
+  <a href="#sx">🏭 Sản xuất</a>
+  <a href="#log">📦 Logistics</a>
+  <a href="#xnk">🌏 XNK</a>
+  <a href="#mh">🛒 Mua hàng</a>
+  <a href="#it">💻 IT</a>
+  <a href="#kt">📊 Kế toán</a>
+  <a href="#phap">⚖️ Pháp chế</a>
+  <a href="#admin">🏢 Admin</a>
+</nav>
+
+<div class="container">
+
+<!-- ===== INSTALLATION ===== -->
+<div class="section" id="install">
+  <div class="section-title">🔧 Cách cài đặt Skill vào Claude</div>
+  <div class="guide-box">
+    <h2>Cài đặt từ file .skill (Phương pháp 1 — Khuyến nghị)</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Tải file .skill</h3>
+        <p>Mỗi skill là 1 file <code>.skill</code> trong thư mục tương ứng. Chọn skill bạn muốn cài — ví dụ <code>okr-va-kpi.skill</code></p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Mở Claude Desktop</h3>
+        <p>Mở ứng dụng Claude trên máy tính. Đảm bảo đang dùng <strong>Cowork mode</strong> (chế độ làm việc với file).</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Upload file .skill</h3>
+        <p>Kéo thả file <code>.skill</code> vào cửa sổ chat Claude, hoặc dùng nút đính kèm. Claude sẽ nhận ra đây là skill file.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Bấm "Save skill"</h3>
+        <p>Một thẻ card sẽ hiện ra với nút <strong>"Save skill"</strong> màu xanh. Bấm vào đó để cài skill vào hệ thống.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <h3>Skill sẵn sàng!</h3>
+        <p>Skill xuất hiện trong danh sách. Từ lần sau chỉ cần nhắn tin theo chủ đề — Claude tự nhận biết và kích hoạt skill đúng.</p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:28px">Cài đặt thủ công vào thư mục (Phương pháp 2)</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Mở thư mục Skills</h3>
+        <p>Tìm thư mục: <code>~/Documents/Claude/</code> (macOS) hoặc <code>Documents\Claude\</code> (Windows)</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Giải nén file .skill</h3>
+        <p>File <code>.skill</code> thực chất là file zip. Đổi đuôi thành <code>.zip</code> rồi giải nén, hoặc dùng tool hỗ trợ.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Copy thư mục skill</h3>
+        <p>Copy thư mục vừa giải nén vào <code>~/Documents/Claude/skills/</code>. Mỗi skill = 1 thư mục chứa <code>SKILL.md</code></p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Khởi động lại Claude</h3>
+        <p>Đóng và mở lại ứng dụng Claude Desktop. Skill mới sẽ được nhận diện tự động.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== USAGE ===== -->
+<div class="section" id="usage">
+  <div class="section-title">💬 Cách sử dụng Skills</div>
+  <div class="usage-box">
+    <h2>Không cần gõ lệnh — Chỉ cần nói điều bạn muốn làm</h2>
+    <div class="usage-grid">
+      <div class="usage-item">
+        <div class="label">✅ Kích hoạt tự động</div>
+        <p>Claude nhận diện yêu cầu và tự động gọi skill phù hợp. Bạn không cần nhớ tên skill.</p>
+        <div class="example">"Giúp tôi viết JD tuyển dụng Marketing Manager"</div>
+      </div>
+      <div class="usage-item">
+        <div class="label">📊 Dùng template có sẵn</div>
+        <p>Mỗi skill có biểu mẫu, quy trình, checklist sẵn — chỉ cần yêu cầu điền thông tin cụ thể.</p>
+        <div class="example">"Lập kế hoạch OKR quý 3 cho phòng Sales"</div>
+      </div>
+      <div class="usage-item">
+        <div class="label">🔗 Kết hợp nhiều skill</div>
+        <p>Skills bổ trợ nhau. Dùng skill phân tích tài chính rồi xuất ra Excel với skill xlsx.</p>
+        <div class="example">"Phân tích DuPont ROE rồi tạo file Excel dashboard"</div>
+      </div>
+      <div class="usage-item">
+        <div class="label">📝 Tạo file đầu ra</div>
+        <p>Claude có thể xuất kết quả thành file .docx, .xlsx, .pptx, .pdf tùy yêu cầu.</p>
+        <div class="example">"Soạn hợp đồng lao động và lưu thành file Word"</div>
+      </div>
+      <div class="usage-item">
+        <div class="label">🌐 Bối cảnh SME Việt Nam</div>
+        <p>Skills được thiết kế riêng cho pháp luật và thực tiễn VN: TT200, Luật LĐ, NĐ 123...</p>
+        <div class="example">"Kiểm tra điều khoản hợp đồng theo Bộ luật Dân sự"</div>
+      </div>
+      <div class="usage-item">
+        <div class="label">⚡ Mẹo dùng hiệu quả</div>
+        <p>Cung cấp thông tin cụ thể về công ty, ngành, quy mô để kết quả phù hợp hơn.</p>
+        <div class="example">"Tôi có công ty F&B 50 nhân viên, giúp tôi..."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BGD ===== -->
+<div class="dept-section" id="bgd">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--bgd),#7c3aed)">
+    <span style="font-size:1.8rem">🏛</span>
+    <h2>Ban Giám đốc / Chiến lược</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--bgd)">
+      <div class="skill-name">Hoạch định Chiến lược</div>
+      <div class="skill-id">hoach-dinh-chien-luoc</div>
+      <div class="skill-desc">SWOT+PEST, 3-tier strategy framework, Vision/Mission/Values, roadmap 3 năm</div>
+      <div class="skill-tags"><span class="tag">SWOT</span><span class="tag">PEST</span><span class="tag">Vision</span><span class="tag">Roadmap</span></div>
+    </div>
+    <div class="skill-card" style="border-top-color:var(--bgd)">
+      <div class="skill-name">OKR và KPI</div>
+      <div class="skill-id">okr-va-kpi</div>
+      <div class="skill-desc">OKR 3 cấp cascade, KPI theo phòng ban, công thức thưởng với 3 nhân số</div>
+      <div class="skill-tags"><span class="tag">OKR</span><span class="tag">KPI</span><span class="tag">Bonus</span></div>
+    </div>
+    <div class="skill-card" style="border-top-color:var(--bgd)">
+      <div class="skill-name">Quản lý Rủi ro Doanh nghiệp</div>
+      <div class="skill-id">quan-ly-rui-ro-doanh-nghiep</div>
+      <div class="skill-desc">Risk Matrix 5×5, Risk Register, 5 loại rủi ro, 4 chiến lược xử lý, BCP</div>
+      <div class="skill-tags"><span class="tag">Risk Matrix</span><span class="tag">BCP</span><span class="tag">COSO</span></div>
+    </div>
+    <div class="skill-card" style="border-top-color:var(--bgd)">
+      <div class="skill-name">Phân tích Thị trường & Cạnh tranh</div>
+      <div class="skill-id">phan-tich-thi-truong-va-canh-tranh</div>
+      <div class="skill-desc">Porter's 5 Forces, Competitive Matrix 9 tiêu chí, TAM/SAM/SOM, white space</div>
+      <div class="skill-tags"><span class="tag">Porter</span><span class="tag">TAM/SAM</span><span class="tag">Competitive</span></div>
+    </div>
+    <div class="skill-card" style="border-top-color:var(--bgd)">
+      <div class="skill-name">Họp BGĐ & Quản trị Công ty</div>
+      <div class="skill-id">hop-bgd-va-quan-tri-cong-ty</div>
+      <div class="skill-desc">Agenda họp BGĐ, biên bản, RACI matrix, Delegation of Authority</div>
+      <div class="skill-tags"><span class="tag">RACI</span><span class="tag">Governance</span><span class="tag">Meeting</span></div>
+    </div>
+    <div class="skill-card" style="border-top-color:var(--bgd)">
+      <div class="skill-name">Mở rộng Thị trường</div>
+      <div class="skill-id">mo-rong-thi-truong</div>
+      <div class="skill-desc">Scoring 7 tiêu chí, 6 phương thức gia nhập thị trường, GTM plan 5 yếu tố</div>
+      <div class="skill-tags"><span class="tag">GTM</span><span class="tag">Market Entry</span><span class="tag">Expansion</span></div>
+    </div>
+    <div class="skill-card" style="border-top-color:var(--bgd)">
+      <div class="skill-name">Xây dựng Văn hóa Doanh nghiệp</div>
+      <div class="skill-id">xay-dung-van-hoa-doanh-nghiep</div>
+      <div class="skill-desc">Core values discovery, eNPS, Gallup Q12, chương trình văn hóa tuần/tháng/năm</div>
+      <div class="skill-tags"><span class="tag">eNPS</span><span class="tag">Culture</span><span class="tag">Gallup</span></div>
+    </div>
+    <div class="skill-card" style="border-top-color:var(--bgd)">
+      <div class="skill-name">Trình bày & Giao tiếp Lãnh đạo</div>
+      <div class="skill-id">trinh-bay-va-giao-tiep-lanh-dao</div>
+      <div class="skill-desc">Pyramid Principle/Minto, Hero's Journey cho kinh doanh, template executive comms</div>
+      <div class="skill-tags"><span class="tag">Minto</span><span class="tag">Executive Comms</span></div>
+    </div>
+    <div class="skill-card" style="border-top-color:var(--bgd)">
+      <div class="skill-name">Mua bán Sáp nhập (M&A)</div>
+      <div class="skill-id">mua-ban-sap-nhap</div>
+      <div class="skill-desc">EBITDA multiples theo ngành, DCF, DD checklist tài chính/pháp lý/vận hành, 4 giai đoạn M&A</div>
+      <div class="skill-tags"><span class="tag">M&A</span><span class="tag">DCF</span><span class="tag">Due Diligence</span></div>
+    </div>
+    <div class="skill-card" style="border-top-color:var(--bgd)">
+      <div class="skill-name">Quản lý Dự án Chiến lược</div>
+      <div class="skill-id">quan-ly-du-an-chien-luoc</div>
+      <div class="skill-desc">Project Charter, Status Report (RAG), Portfolio Dashboard, Earned Value (SPI/CPI)</div>
+      <div class="skill-tags"><span class="tag">PMO</span><span class="tag">Earned Value</span><span class="tag">RAG</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TÀI CHÍNH ===== -->
+<div class="dept-section" id="tc">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--tc),#2563eb)">
+    <span style="font-size:1.8rem">💰</span>
+    <h2>Tài chính / CFO</h2>
+    <span class="dept-count">11 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--tc)"><div class="skill-name">Lập Kế hoạch Tài chính</div><div class="skill-id">lap-ke-hoach-tai-chinh</div><div class="skill-desc">Template kế hoạch tài chính, công thức hòa vốn, roadmap 3 năm</div><div class="skill-tags"><span class="tag">Break-even</span><span class="tag">Planning</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--tc)"><div class="skill-name">Báo cáo Tài chính</div><div class="skill-id">bao-cao-tai-chinh</div><div class="skill-desc">P&L (B02-DN theo TT200), Bảng cân đối, Dòng tiền, tỷ số tài chính</div><div class="skill-tags"><span class="tag">TT200</span><span class="tag">P&L</span><span class="tag">CFO/CFI</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--tc)"><div class="skill-name">Quản lý Dòng tiền</div><div class="skill-id">quan-ly-dong-tien</div><div class="skill-desc">Template dòng tiền tuần/tháng, CCC = DSO+DIO-DPO, giải pháp thiếu hụt</div><div class="skill-tags"><span class="tag">CCC</span><span class="tag">Cash Flow</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--tc)"><div class="skill-name">Phân tích Tài chính</div><div class="skill-id">phan-tich-tai-chinh</div><div class="skill-desc">4 nhóm tỷ số, DuPont ROE, xu hướng 3 năm + benchmarks ngành</div><div class="skill-tags"><span class="tag">DuPont</span><span class="tag">Ratio Analysis</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--tc)"><div class="skill-name">Ngân sách & Kiểm soát Chi phí</div><div class="skill-id">ngan-sach-va-kiem-soat-chi-phi</div><div class="skill-desc">ZBB vs Incremental, bảng theo dõi variance, mức phê duyệt, cơ hội tiết kiệm</div><div class="skill-tags"><span class="tag">ZBB</span><span class="tag">Variance</span><span class="tag">Budget</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--tc)"><div class="skill-name">Thuế Doanh nghiệp</div><div class="skill-id">thue-doanh-nghiep</div><div class="skill-desc">TNDN 20%, ưu đãi FTA, GTGT khấu trừ, TNCN lũy tiến, tax planning hợp pháp</div><div class="skill-tags"><span class="tag">TNDN</span><span class="tag">GTGT</span><span class="tag">TNCN</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--tc)"><div class="skill-name">Quản lý Công nợ</div><div class="skill-id">quan-ly-cong-no</div><div class="skill-desc">AR Aging 5 bucket, thu nợ 5 cấp độ, chính sách tín dụng 5C, DPRR TT48/2019</div><div class="skill-tags"><span class="tag">AR Aging</span><span class="tag">5C Credit</span><span class="tag">TT48</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--tc)"><div class="skill-name">Kiểm toán Nội bộ</div><div class="skill-id">kiem-toan-noi-bo</div><div class="skill-desc">Framework COSO, segregation of duties, checklist kiểm toán tháng, red flags gian lận</div><div class="skill-tags"><span class="tag">COSO</span><span class="tag">Internal Audit</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--tc)"><div class="skill-name">Quản lý Vốn & Đầu tư</div><div class="skill-id">quan-ly-von-va-dau-tu</div><div class="skill-desc">Payback/NPV/IRR/ROI, tính WACC, D/E ratio, hồ sơ vay ngân hàng</div><div class="skill-tags"><span class="tag">WACC</span><span class="tag">NPV</span><span class="tag">IRR</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--tc)"><div class="skill-name">Báo cáo Tài chính cho BGĐ</div><div class="skill-id">bao-cao-tai-chinh-cho-bgd</div><div class="skill-desc">CFO Dashboard đèn giao thông, bridge analysis, rolling forecast 3 tháng</div><div class="skill-tags"><span class="tag">Dashboard</span><span class="tag">Bridge Analysis</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--tc)"><div class="skill-name">Kế toán & Sổ sách</div><div class="skill-id">ke-toan-va-so-sach</div><div class="skill-desc">7 bút toán thường gặp (TK111/131/152/156/211/214/334), HĐĐT NĐ123/2020</div><div class="skill-tags"><span class="tag">TK 111</span><span class="tag">NĐ123</span><span class="tag">Journal</span></div></div>
+  </div>
+</div>
+
+<!-- ===== HR ===== -->
+<div class="dept-section" id="hr">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--hr),#0284c7)">
+    <span style="font-size:1.8rem">👥</span>
+    <h2>Nhân sự / HR</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--hr)"><div class="skill-name">Tuyển dụng</div><div class="skill-id">tuyen-dung</div><div class="skill-desc">JD chuẩn, quy trình tuyển dụng, sourcing đa kênh, scoring candidates</div><div class="skill-tags"><span class="tag">JD</span><span class="tag">Sourcing</span><span class="tag">Screening</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--hr)"><div class="skill-name">Phỏng vấn</div><div class="skill-id">phong-van</div><div class="skill-desc">STAR method, câu hỏi theo năng lực, scorecard phỏng vấn, behavioral questions</div><div class="skill-tags"><span class="tag">STAR</span><span class="tag">Competency</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--hr)"><div class="skill-name">Onboarding Nhân viên</div><div class="skill-id">onboarding-nhan-vien</div><div class="skill-desc">Checklist 30/60/90 ngày, buddy system, khung đánh giá thử việc</div><div class="skill-tags"><span class="tag">30-60-90</span><span class="tag">Buddy</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--hr)"><div class="skill-name">Hợp đồng Lao động</div><div class="skill-id">hop-dong-lao-dong</div><div class="skill-desc">HĐLĐ xác định/không xác định thời hạn, điều khoản bảo mật, NCA theo Bộ luật LĐ</div><div class="skill-tags"><span class="tag">BLLĐ</span><span class="tag">NCA</span><span class="tag">HĐLĐ</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--hr)"><div class="skill-name">Đánh giá Nhân viên</div><div class="skill-id">danh-gia-nhan-vien</div><div class="skill-desc">Performance review 360°, rating scale, PIP (Performance Improvement Plan)</div><div class="skill-tags"><span class="tag">360°</span><span class="tag">PIP</span><span class="tag">KPI</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--hr)"><div class="skill-name">Kế hoạch Đào tạo</div><div class="skill-id">ke-hoach-dao-tao</div><div class="skill-desc">TNA (Training Needs Analysis), lịch đào tạo năm, đánh giá hiệu quả Kirkpatrick</div><div class="skill-tags"><span class="tag">TNA</span><span class="tag">Kirkpatrick</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--hr)"><div class="skill-name">Quản lý Nghỉ phép</div><div class="skill-id">quan-ly-nghi-phep</div><div class="skill-desc">Chính sách nghỉ phép theo BLLĐ 2019, form xin nghỉ, quy trình duyệt</div><div class="skill-tags"><span class="tag">BLLĐ 2019</span><span class="tag">Leave Policy</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--hr)"><div class="skill-name">Xử lý Kỷ luật</div><div class="skill-id">xu-ly-ky-luat</div><div class="skill-desc">4 hình thức kỷ luật theo BLLĐ, quy trình xử lý đúng pháp luật, biên bản kỷ luật</div><div class="skill-tags"><span class="tag">Kỷ luật LĐ</span><span class="tag">BLLĐ</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--hr)"><div class="skill-name">Chính sách Nội bộ</div><div class="skill-id">chinh-sach-noi-bo</div><div class="skill-desc">Nội quy lao động, chính sách lương thưởng, quy định điều hành nội bộ</div><div class="skill-tags"><span class="tag">Nội quy</span><span class="tag">Policy</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--hr)"><div class="skill-name">Báo cáo Nhân sự</div><div class="skill-id">bao-cao-nhan-su</div><div class="skill-desc">HR Dashboard: headcount, turnover, absenteeism, cost-per-hire, training ROI</div><div class="skill-tags"><span class="tag">HR Metrics</span><span class="tag">Turnover</span></div></div>
+  </div>
+</div>
+
+<!-- ===== SALES ===== -->
+<div class="dept-section" id="sales">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--sales),#dc2626)">
+    <span style="font-size:1.8rem">🎯</span>
+    <h2>Kinh doanh / Sales</h2>
+    <span class="dept-count">12 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Quy trình Bán hàng</div><div class="skill-id">quy-trinh-ban-hang</div><div class="skill-desc">Sales funnel 7 bước, tiêu chí chuyển stage, checklist từng giai đoạn</div><div class="skill-tags"><span class="tag">Sales Funnel</span><span class="tag">Pipeline</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Kịch bản Bán hàng</div><div class="skill-id">kich-ban-ban-hang</div><div class="skill-desc">SPIN Selling, kịch bản theo giai đoạn, xử lý từ chối phổ biến</div><div class="skill-tags"><span class="tag">SPIN</span><span class="tag">Script</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Kịch bản Telesales</div><div class="skill-id">kich-ban-telesales</div><div class="skill-desc">Opening hook, qualify 4 bước, xử lý từ chối qua điện thoại, closing</div><div class="skill-tags"><span class="tag">Cold Call</span><span class="tag">Telesales</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Đề xuất Báo giá</div><div class="skill-id">de-xuat-bao-gia</div><div class="skill-desc">Template báo giá chuyên nghiệp, tiêu chí định giá, value proposition</div><div class="skill-tags"><span class="tag">Pricing</span><span class="tag">Proposal</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Phân tích KH Tiềm năng</div><div class="skill-id">phan-tich-khach-hang-tiem-nang</div><div class="skill-desc">ICP (Ideal Customer Profile), BANT framework, lead scoring matrix</div><div class="skill-tags"><span class="tag">ICP</span><span class="tag">BANT</span><span class="tag">Lead Score</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Xử lý Từ chối</div><div class="skill-id">xu-ly-tu-choi</div><div class="skill-desc">30 tình huống từ chối phổ biến, kỹ thuật Feel-Felt-Found, boomerang method</div><div class="skill-tags"><span class="tag">Objection</span><span class="tag">Feel-Felt-Found</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Email Sales</div><div class="skill-id">email-sales</div><div class="skill-desc">Cold email framework, follow-up sequence, subject line tối ưu, A/B test</div><div class="skill-tags"><span class="tag">Cold Email</span><span class="tag">Sequence</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Hợp đồng / Đơn hàng</div><div class="skill-id">hop-dong-don-hang</div><div class="skill-desc">Template hợp đồng mua bán, điều khoản đặc biệt, phụ lục và amendment</div><div class="skill-tags"><span class="tag">Contract</span><span class="tag">Order</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Chăm sóc Khách hàng (Sales)</div><div class="skill-id">cham-soc-khach-hang</div><div class="skill-desc">Account management, upsell/cross-sell, customer success framework</div><div class="skill-tags"><span class="tag">Account Mgmt</span><span class="tag">Upsell</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Dự báo Doanh số</div><div class="skill-id">du-bao-doanh-so</div><div class="skill-desc">Forecast theo pipeline stage, bottom-up vs top-down, accuracy tracking</div><div class="skill-tags"><span class="tag">Forecast</span><span class="tag">Pipeline</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Chấm điểm Nhân viên Sales</div><div class="skill-id">cham-diem-nhan-vien-sales</div><div class="skill-desc">Sales scorecard, KPI đa chiều (activity/pipeline/result), coaching plan</div><div class="skill-tags"><span class="tag">Scorecard</span><span class="tag">Coaching</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sales)"><div class="skill-name">Báo cáo Sales Tháng</div><div class="skill-id">bao-cao-sales-thang</div><div class="skill-desc">Sales dashboard, phân tích win/loss, pipeline velocity, forecast accuracy</div><div class="skill-tags"><span class="tag">Win/Loss</span><span class="tag">Velocity</span></div></div>
+  </div>
+</div>
+
+<!-- ===== MARKETING ===== -->
+<div class="dept-section" id="mkt">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--mkt),#ea580c)">
+    <span style="font-size:1.8rem">📣</span>
+    <h2>Marketing</h2>
+    <span class="dept-count">11 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--mkt)"><div class="skill-name">Khách hàng Mục tiêu (Persona)</div><div class="skill-id">khach-hang-muc-tieu</div><div class="skill-desc">ICP framework, Persona canvas, pain/gain mapping, Jobs-To-Be-Done</div><div class="skill-tags"><span class="tag">Persona</span><span class="tag">JTBD</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mkt)"><div class="skill-name">Kế hoạch Chiến dịch</div><div class="skill-id">ke-hoach-chien-dich</div><div class="skill-desc">Campaign brief, mục tiêu SMART, media planning, budget allocation</div><div class="skill-tags"><span class="tag">Campaign Brief</span><span class="tag">SMART</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mkt)"><div class="skill-name">Nội dung MXH</div><div class="skill-id">noi-dung-mang-xa-hoi</div><div class="skill-desc">Content framework, copy hook formula, caption Facebook/TikTok/Instagram</div><div class="skill-tags"><span class="tag">Hook</span><span class="tag">Copy</span><span class="tag">Caption</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mkt)"><div class="skill-name">Nội dung SEO</div><div class="skill-id">noi-dung-seo</div><div class="skill-desc">Keyword research, content outline SEO, on-page checklist, internal linking</div><div class="skill-tags"><span class="tag">SEO</span><span class="tag">Keyword</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mkt)"><div class="skill-name">Email Marketing</div><div class="skill-id">email-marketing</div><div class="skill-desc">Automation sequence, segmentation, A/B test subject line, template HTML</div><div class="skill-tags"><span class="tag">Automation</span><span class="tag">Drip</span><span class="tag">A/B Test</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mkt)"><div class="skill-name">Mô tả Sản phẩm</div><div class="skill-id">mo-ta-san-pham</div><div class="skill-desc">FAB framework, copywriting cho e-commerce, SEO product description</div><div class="skill-tags"><span class="tag">FAB</span><span class="tag">Copywriting</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mkt)"><div class="skill-name">Lịch Nội dung</div><div class="skill-id">lich-noi-dung</div><div class="skill-desc">Content calendar tháng, content pillars, cross-channel planning</div><div class="skill-tags"><span class="tag">Calendar</span><span class="tag">Content Pillars</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mkt)"><div class="skill-name">Phân tích Đối thủ</div><div class="skill-id">phan-tich-doi-thu</div><div class="skill-desc">Competitive audit framework, positioning map, gap analysis, SWOT cạnh tranh</div><div class="skill-tags"><span class="tag">Competitive</span><span class="tag">Positioning</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mkt)"><div class="skill-name">Chấm điểm Nội dung</div><div class="skill-id">cham-diem-noi-dung</div><div class="skill-desc">Scorecard đánh giá content: hook, value, CTA, readability, viral potential</div><div class="skill-tags"><span class="tag">Scoring</span><span class="tag">Content QC</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mkt)"><div class="skill-name">Báo cáo Chiến dịch</div><div class="skill-id">bao-cao-chien-dich</div><div class="skill-desc">Campaign recap template, ROAS analysis, attribution model, learnings</div><div class="skill-tags"><span class="tag">ROAS</span><span class="tag">Attribution</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mkt)"><div class="skill-name">Báo cáo Marketing Tháng</div><div class="skill-id">bao-cao-marketing-thang</div><div class="skill-desc">Marketing dashboard, funnel metrics, channel ROI comparison, next actions</div><div class="skill-tags"><span class="tag">Dashboard</span><span class="tag">Funnel</span><span class="tag">ROI</span></div></div>
+  </div>
+</div>
+
+<!-- ===== PR ===== -->
+<div class="dept-section" id="pr">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--pr),#db2777)">
+    <span style="font-size:1.8rem">📡</span>
+    <h2>PR / Quan hệ Công chúng</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--pr)"><div class="skill-name">Xây dựng Thương hiệu</div><div class="skill-id">xay-dung-thuong-hieu</div><div class="skill-desc">3C brand analysis, Brand Positioning Statement, Brand Pyramid 5 tầng, Brand Voice</div><div class="skill-tags"><span class="tag">Brand Pyramid</span><span class="tag">Positioning</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--pr)"><div class="skill-name">Quan hệ Báo chí</div><div class="skill-id">quan-he-bao-chi</div><div class="skill-desc">Thông cáo báo chí 5W1H, media list báo VN, pitch email, họp báo checklist</div><div class="skill-tags"><span class="tag">Press Release</span><span class="tag">Media List</span><span class="tag">Pitch</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--pr)"><div class="skill-name">Truyền thông Khủng hoảng</div><div class="skill-id">truyen-thong-khung-hoang</div><div class="skill-desc">Crisis 3 cấp độ, Protocol vàng 24h, 4R framework, kế hoạch phục hồi thương hiệu</div><div class="skill-tags"><span class="tag">Crisis</span><span class="tag">4R</span><span class="tag">Recovery</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--pr)"><div class="skill-name">Quan hệ Cộng đồng</div><div class="skill-id">quan-he-cong-dong</div><div class="skill-desc">CSR strategy theo ngành, SROI calculation, ESG report đơn giản cho SME</div><div class="skill-tags"><span class="tag">CSR</span><span class="tag">SROI</span><span class="tag">ESG</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--pr)"><div class="skill-name">Nội dung Thương hiệu</div><div class="skill-id">noi-dung-thuong-hieu</div><div class="skill-desc">Content pillars, editorial calendar, thought leadership strategy, brand story</div><div class="skill-tags"><span class="tag">Content Pillars</span><span class="tag">Thought Leader</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--pr)"><div class="skill-name">Sự kiện & Tài trợ</div><div class="skill-id">su-kien-va-tai-tro</div><div class="skill-desc">Event brief, checklist 8→1 tuần, ngân sách template, sponsorship ROI</div><div class="skill-tags"><span class="tag">Event Brief</span><span class="tag">Sponsorship</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--pr)"><div class="skill-name">MXH Thương hiệu</div><div class="skill-id">mang-xa-hoi-thuong-hieu</div><div class="skill-desc">Social strategy theo kênh, community playbook, xử lý comment, social KPIs</div><div class="skill-tags"><span class="tag">Community</span><span class="tag">Playbook</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--pr)"><div class="skill-name">Đánh giá Thương hiệu</div><div class="skill-id">danh-gia-thuong-hieu</div><div class="skill-desc">Brand health 4 tầng (Awareness→Loyalty), survey template, NPS, brand scorecard</div><div class="skill-tags"><span class="tag">Brand Health</span><span class="tag">NPS</span><span class="tag">SOV</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--pr)"><div class="skill-name">Truyền thông Nội bộ</div><div class="skill-id">truyen-thong-noi-bo</div><div class="skill-desc">Internal comms strategy, CARE message framework, town hall agenda, internal newsletter</div><div class="skill-tags"><span class="tag">Internal Comms</span><span class="tag">Town Hall</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--pr)"><div class="skill-name">Báo cáo PR</div><div class="skill-id">bao-cao-pr</div><div class="skill-desc">EMV, Share of Voice, sentiment tracking, PR ROI, quarterly report cho BGĐ</div><div class="skill-tags"><span class="tag">EMV</span><span class="tag">SOV</span><span class="tag">PR ROI</span></div></div>
+  </div>
+</div>
+
+<!-- ===== CSKH ===== -->
+<div class="dept-section" id="cskh">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--cskh),#0d9488)">
+    <span style="font-size:1.8rem">💬</span>
+    <h2>Chăm sóc Khách hàng</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--cskh)"><div class="skill-name">Kịch bản Tư vấn KH</div><div class="skill-id">kich-ban-tu-van-khach-hang</div><div class="skill-desc">Script theo kênh (phone/chat/email), active listening, solution selling</div><div class="skill-tags"><span class="tag">Script</span><span class="tag">Active Listening</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--cskh)"><div class="skill-name">Quy trình Tiếp nhận Khiếu nại</div><div class="skill-id">quy-trinh-tiep-nhan-khieu-nai</div><div class="skill-desc">5 bước xử lý khiếu nại, phân cấp escalation, SLA xử lý, template phản hồi</div><div class="skill-tags"><span class="tag">Complaint</span><span class="tag">SLA</span><span class="tag">Escalation</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--cskh)"><div class="skill-name">Xử lý Khiếu nại Khó</div><div class="skill-id">xu-ly-khieu-nai-kho</div><div class="skill-desc">KH tức giận, KH không hợp lý, KH đe dọa — kỹ thuật de-escalation</div><div class="skill-tags"><span class="tag">De-escalation</span><span class="tag">Difficult CX</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--cskh)"><div class="skill-name">Chăm sóc Sau bán hàng</div><div class="skill-id">cham-soc-sau-ban-hang</div><div class="skill-desc">After-sales sequence, check-in call script, retention playbook, win-back</div><div class="skill-tags"><span class="tag">Retention</span><span class="tag">Win-back</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--cskh)"><div class="skill-name">Chính sách Đổi trả Hàng</div><div class="skill-id">chinh-sach-doi-tra-hang</div><div class="skill-desc">Policy đổi/trả/hoàn tiền, điều kiện rõ ràng, quy trình thực thi</div><div class="skill-tags"><span class="tag">Return Policy</span><span class="tag">Refund</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--cskh)"><div class="skill-name">Quản lý Ticket Hỗ trợ</div><div class="skill-id">quan-ly-ticket-ho-tro</div><div class="skill-desc">Phân loại ticket, SLA theo priority, quy trình xử lý, knowledge base</div><div class="skill-tags"><span class="tag">Ticket</span><span class="tag">SLA</span><span class="tag">KB</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--cskh)"><div class="skill-name">Đo lường Hài lòng KH</div><div class="skill-id">do-luong-hai-long-khach-hang</div><div class="skill-desc">CSAT, NPS, CES survey design, benchmark, action planning từ kết quả</div><div class="skill-tags"><span class="tag">CSAT</span><span class="tag">NPS</span><span class="tag">CES</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--cskh)"><div class="skill-name">Đào tạo Kỹ năng CSKH</div><div class="skill-id">dao-tao-ky-nang-cskh</div><div class="skill-desc">Training plan cho agent, roleplay scenarios, quality monitoring, coaching</div><div class="skill-tags"><span class="tag">Training</span><span class="tag">QA</span><span class="tag">Coaching</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--cskh)"><div class="skill-name">Xây dựng Loyalty Program</div><div class="skill-id">xay-dung-loyalty-program</div><div class="skill-desc">Hạng thành viên, tích điểm đổi thưởng, VIP program design, CLV optimization</div><div class="skill-tags"><span class="tag">Loyalty</span><span class="tag">CLV</span><span class="tag">VIP</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--cskh)"><div class="skill-name">Báo cáo CSKH</div><div class="skill-id">bao-cao-cskh</div><div class="skill-desc">CX Dashboard: ticket volume, FCR, AHT, CSAT trend, agent performance</div><div class="skill-tags"><span class="tag">FCR</span><span class="tag">AHT</span><span class="tag">CX Metrics</span></div></div>
+  </div>
+</div>
+
+<!-- ===== R&D ===== -->
+<div class="dept-section" id="rd">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--rd),#059669)">
+    <span style="font-size:1.8rem">🔬</span>
+    <h2>R&D / Phát triển Sản phẩm</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--rd)"><div class="skill-name">Quy trình Phát triển Sản phẩm</div><div class="skill-id">quy-trinh-phat-trien-san-pham</div><div class="skill-desc">Stage-Gate 5 giai đoạn + 5 cổng, PRD template, Launch Readiness checklist</div><div class="skill-tags"><span class="tag">Stage-Gate</span><span class="tag">PRD</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--rd)"><div class="skill-name">Nghiên cứu Khách hàng</div><div class="skill-id">nghien-cuu-khach-hang</div><div class="skill-desc">Interview guide 5W, Persona template, Customer Journey Map 5 giai đoạn</div><div class="skill-tags"><span class="tag">User Research</span><span class="tag">CJM</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--rd)"><div class="skill-name">Quản lý Danh mục Sản phẩm</div><div class="skill-id">quan-ly-danh-muc-san-pham</div><div class="skill-desc">BCG Matrix 2×2, Product Lifecycle strategies, Product Roadmap, RICE score</div><div class="skill-tags"><span class="tag">BCG</span><span class="tag">RICE</span><span class="tag">Roadmap</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--rd)"><div class="skill-name">Kiểm soát Chất lượng R&D</div><div class="skill-id">kiem-soat-chat-luong-rd</div><div class="skill-desc">Technical spec template, 3 giai đoạn test (in-house/3rd party/consumer), ECN form</div><div class="skill-tags"><span class="tag">Tech Spec</span><span class="tag">ECN</span><span class="tag">Testing</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--rd)"><div class="skill-name">Sáng kiến & Đổi mới</div><div class="skill-id">sang-kien-va-doi-moi</div><div class="skill-desc">Design Thinking 5 bước, form sáng kiến SK-[YY]-[No], Lean Startup BME</div><div class="skill-tags"><span class="tag">Design Thinking</span><span class="tag">Lean Startup</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--rd)"><div class="skill-name">Sở hữu Trí tuệ</div><div class="skill-id">so-huu-tri-tue</div><div class="skill-desc">Đăng ký nhãn hiệu NOIP, Sáng chế vs GPHI, Bản quyền, Bí mật TM, IP Register</div><div class="skill-tags"><span class="tag">Nhãn hiệu</span><span class="tag">NOIP</span><span class="tag">Bản quyền</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--rd)"><div class="skill-name">Phân tích Dữ liệu Sản phẩm</div><div class="skill-id">phan-tich-du-lieu-san-pham</div><div class="skill-desc">AARRR metrics, A/B test 5 bước, PMF đo bằng Sean Ellis + retention curve</div><div class="skill-tags"><span class="tag">AARRR</span><span class="tag">PMF</span><span class="tag">A/B Test</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--rd)"><div class="skill-name">Tích hợp Công nghệ vào SP</div><div class="skill-id">tich-hop-cong-nghe-vao-san-pham</div><div class="skill-desc">AI use cases theo chức năng, Buy/Build/Partner decision, tech roadmap 3 pha</div><div class="skill-tags"><span class="tag">AI Integration</span><span class="tag">Tech Roadmap</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--rd)"><div class="skill-name">Tiêu chuẩn & Chứng nhận SP</div><div class="skill-id">tieu-chuan-va-chung-nhan-san-pham</div><div class="skill-desc">Chứng nhận theo ngành (F&B/điện tử/đồ chơi), ISO 9001/22000/14001, xuất khẩu EU/USA</div><div class="skill-tags"><span class="tag">ISO</span><span class="tag">CE</span><span class="tag">HACCP</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--rd)"><div class="skill-name">Báo cáo R&D</div><div class="skill-id">bao-cao-rd</div><div class="skill-desc">R&D KPI 4 nhóm (input/throughput/output/impact), Stage-Gate pipeline review</div><div class="skill-tags"><span class="tag">R&D KPI</span><span class="tag">Pipeline Review</span></div></div>
+  </div>
+</div>
+
+<!-- ===== SẢN XUẤT ===== -->
+<div class="dept-section" id="sx">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--sx),#16a34a)">
+    <span style="font-size:1.8rem">🏭</span>
+    <h2>Sản xuất / Vận hành</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--sx)"><div class="skill-name">Kế hoạch Sản xuất</div><div class="skill-id">ke-hoach-san-xuat</div><div class="skill-desc">MPS, MRP, capacity planning, lịch sản xuất tuần/tháng</div><div class="skill-tags"><span class="tag">MPS</span><span class="tag">MRP</span><span class="tag">Capacity</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sx)"><div class="skill-name">Kiểm soát Quy trình SX</div><div class="skill-id">kiem-soat-quy-trinh-san-xuat</div><div class="skill-desc">SOP tiêu chuẩn hóa, control chart, process monitoring, deviation report</div><div class="skill-tags"><span class="tag">SOP</span><span class="tag">Control Chart</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sx)"><div class="skill-name">Quản lý Chất lượng (QC)</div><div class="skill-id">quan-ly-chat-luong-qc</div><div class="skill-desc">AQL sampling, IQC/IPQC/OQC, 7 tools of quality, FMEA</div><div class="skill-tags"><span class="tag">AQL</span><span class="tag">FMEA</span><span class="tag">7 Tools</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sx)"><div class="skill-name">Bảo trì Thiết bị</div><div class="skill-id">bao-tri-thiet-bi</div><div class="skill-desc">PM schedule, TPM, MTBF/MTTR tracking, bảo trì dự đoán (predictive)</div><div class="skill-tags"><span class="tag">TPM</span><span class="tag">MTBF</span><span class="tag">Preventive</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sx)"><div class="skill-name">Quản lý Công suất</div><div class="skill-id">quan-ly-cong-suat</div><div class="skill-desc">OEE calculation, bottleneck analysis, capacity utilization, throughput</div><div class="skill-tags"><span class="tag">OEE</span><span class="tag">Bottleneck</span><span class="tag">Throughput</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sx)"><div class="skill-name">Quản lý Nguyên vật liệu</div><div class="skill-id">quan-ly-nguyen-vat-lieu</div><div class="skill-desc">BOM management, material variance, scrap tracking, supplier material spec</div><div class="skill-tags"><span class="tag">BOM</span><span class="tag">Scrap</span><span class="tag">Variance</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sx)"><div class="skill-name">Cải tiến Liên tục (Kaizen)</div><div class="skill-id">cai-tien-lien-tuc-kaizen</div><div class="skill-desc">Kaizen event, 5S, PDCA, Value Stream Mapping, waste elimination (7 lãng phí)</div><div class="skill-tags"><span class="tag">Kaizen</span><span class="tag">5S</span><span class="tag">VSM</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sx)"><div class="skill-name">An toàn Lao động SX</div><div class="skill-id">an-toan-lao-dong-san-xuat</div><div class="skill-desc">Risk assessment xưởng, HIRARC, PPE checklist, quy trình báo cáo tai nạn</div><div class="skill-tags"><span class="tag">HIRARC</span><span class="tag">PPE</span><span class="tag">Safety</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sx)"><div class="skill-name">Xử lý Lỗi Sản phẩm</div><div class="skill-id">xu-ly-loi-san-pham</div><div class="skill-desc">NCR (Non-Conformance Report), 8D problem solving, RCA với 5 Whys + Fishbone</div><div class="skill-tags"><span class="tag">8D</span><span class="tag">NCR</span><span class="tag">5 Whys</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--sx)"><div class="skill-name">Báo cáo Sản xuất</div><div class="skill-id">bao-cao-san-xuat</div><div class="skill-desc">Daily production report, OEE dashboard, quality KPI, delivery performance</div><div class="skill-tags"><span class="tag">Daily Report</span><span class="tag">OEE</span></div></div>
+  </div>
+</div>
+
+<!-- ===== LOGISTICS ===== -->
+<div class="dept-section" id="log">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--log),#2563eb)">
+    <span style="font-size:1.8rem">📦</span>
+    <h2>Kho vận / Logistics</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--log)"><div class="skill-name">Nhập kho & Kiểm tra Hàng</div><div class="skill-id">nhap-kho-va-kiem-tra-hang</div><div class="skill-desc">GRN process, kiểm tra số lượng/chất lượng, GRN form, xử lý bất thường</div><div class="skill-tags"><span class="tag">GRN</span><span class="tag">Receiving</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--log)"><div class="skill-name">Xuất kho & Vận chuyển</div><div class="skill-id">xuat-kho-va-van-chuyen</div><div class="skill-desc">FIFO/FEFO, pick-pack-ship, delivery note, vận đơn nội địa</div><div class="skill-tags"><span class="tag">FIFO</span><span class="tag">Pick-Pack</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--log)"><div class="skill-name">Quản lý Hàng tồn kho</div><div class="skill-id">quan-ly-hang-ton-kho</div><div class="skill-desc">ABC analysis, reorder point, bin location system, cycle count</div><div class="skill-tags"><span class="tag">ABC</span><span class="tag">Cycle Count</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--log)"><div class="skill-name">Kiểm kê Kho</div><div class="skill-id">kiem-ke-kho</div><div class="skill-desc">Kế hoạch kiểm kê định kỳ, biên bản kiểm kê, xử lý chênh lệch</div><div class="skill-tags"><span class="tag">Stock Count</span><span class="tag">Variance</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--log)"><div class="skill-name">An toàn Kho bãi</div><div class="skill-id">an-toan-kho-bai</div><div class="skill-desc">Layout kho an toàn, phòng cháy chữa cháy, vật liệu nguy hiểm, MSDS</div><div class="skill-tags"><span class="tag">PCCC</span><span class="tag">MSDS</span><span class="tag">Warehouse Safety</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--log)"><div class="skill-name">Theo dõi Đơn hàng</div><div class="skill-id">theo-doi-don-hang</div><div class="skill-desc">Order tracking process, customer notification, exception handling, OTD KPI</div><div class="skill-tags"><span class="tag">OTD</span><span class="tag">Tracking</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--log)"><div class="skill-name">Tối ưu Chi phí Logistics</div><div class="skill-id">toi-uu-chi-phi-logistics</div><div class="skill-desc">Network optimization, carrier benchmarking, consolidation, freight audit</div><div class="skill-tags"><span class="tag">Freight Audit</span><span class="tag">Carrier</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--log)"><div class="skill-name">Quản lý NCC Logistics</div><div class="skill-id">quan-ly-nha-cung-cap-logistics</div><div class="skill-desc">Carrier scorecard, 3PL evaluation, SLA logistics, annual rate negotiation</div><div class="skill-tags"><span class="tag">3PL</span><span class="tag">Carrier Score</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--log)"><div class="skill-name">Xử lý Hàng hủy / Hàng lỗi</div><div class="skill-id">xu-ly-hang-huy-hang-loi</div><div class="skill-desc">Quy trình xử lý hàng lỗi, return logistics, disposal policy, credit note</div><div class="skill-tags"><span class="tag">Returns</span><span class="tag">Disposal</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--log)"><div class="skill-name">Báo cáo Kho vận</div><div class="skill-id">bao-cao-kho-van</div><div class="skill-desc">Logistics KPI dashboard: OTD, fill rate, warehouse utilization, logistics cost %</div><div class="skill-tags"><span class="tag">Fill Rate</span><span class="tag">Utilization</span></div></div>
+  </div>
+</div>
+
+<!-- ===== XNK ===== -->
+<div class="dept-section" id="xnk">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--xnk),#d97706)">
+    <span style="font-size:1.8rem">🌏</span>
+    <h2>Xuất nhập khẩu</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--xnk)"><div class="skill-name">Thủ tục Xuất khẩu</div><div class="skill-id">thu-tuc-xuat-khau</div><div class="skill-desc">Quy trình xuất khẩu, chứng từ XK, form C/O ưu đãi, khai báo hải quan</div><div class="skill-tags"><span class="tag">C/O</span><span class="tag">Khai hải quan</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--xnk)"><div class="skill-name">Thủ tục Nhập khẩu</div><div class="skill-id">thu-tuc-nhap-khau</div><div class="skill-desc">Quy trình NK, bộ chứng từ nhập khẩu, kiểm tra chuyên ngành, luồng thông quan</div><div class="skill-tags"><span class="tag">Luồng xanh</span><span class="tag">Chứng từ NK</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--xnk)"><div class="skill-name">Thuế XNK & Hải quan</div><div class="skill-id">thue-xnk-va-hai-quan</div><div class="skill-desc">Cấu trúc HS Code, bảng so sánh FTA (ATIGA/ACFTA/VKFTA/EVFTA/CPTPP), hoàn thuế SXXK</div><div class="skill-tags"><span class="tag">HS Code</span><span class="tag">FTA</span><span class="tag">EVFTA</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--xnk)"><div class="skill-name">Hợp đồng Ngoại thương</div><div class="skill-id">hop-dong-ngoai-thuong</div><div class="skill-desc">Incoterms 2020, cấu trúc hợp đồng mua bán quốc tế, điều khoản Force Majeure</div><div class="skill-tags"><span class="tag">Incoterms 2020</span><span class="tag">CISG</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--xnk)"><div class="skill-name">Thanh toán Quốc tế</div><div class="skill-id">thanh-toan-quoc-te</div><div class="skill-desc">L/C (UCP600), T/T, D/P, D/A — so sánh rủi ro, quy trình thanh toán L/C</div><div class="skill-tags"><span class="tag">L/C</span><span class="tag">UCP600</span><span class="tag">T/T</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--xnk)"><div class="skill-name">Quản lý NCC Nước ngoài</div><div class="skill-id">quan-ly-nha-cung-cap-nuoc-ngoai</div><div class="skill-desc">Audit factory checklist, supplier scorecard quốc tế, giao tiếp cross-culture</div><div class="skill-tags"><span class="tag">Factory Audit</span><span class="tag">Global Sourcing</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--xnk)"><div class="skill-name">Vận tải Quốc tế</div><div class="skill-id">van-tai-quoc-te</div><div class="skill-desc">FCL/LCL so sánh, tính CBM, quy trình freight forwarder, bảo hiểm hàng hải</div><div class="skill-tags"><span class="tag">FCL/LCL</span><span class="tag">CBM</span><span class="tag">Marine Insurance</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--xnk)"><div class="skill-name">Kiểm soát Chất lượng Hàng nhập</div><div class="skill-id">kiem-soat-chat-luong-hang-nhap</div><div class="skill-desc">AQL 2.5 bảng lấy mẫu, NCR form, pre-shipment inspection quy trình</div><div class="skill-tags"><span class="tag">AQL 2.5</span><span class="tag">NCR</span><span class="tag">PSI</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--xnk)"><div class="skill-name">Tuân thủ Pháp luật XNK</div><div class="skill-id">tuan-thu-phap-luat-xnk</div><div class="skill-desc">Hàng cấm/hạn chế (NĐ69/2018), chống gian lận xuất xứ, vi phạm NĐ128/2020</div><div class="skill-tags"><span class="tag">NĐ69</span><span class="tag">NĐ128</span><span class="tag">C/O Fraud</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--xnk)"><div class="skill-name">Báo cáo XNK</div><div class="skill-id">bao-cao-xnk</div><div class="skill-desc">Monthly XNK report, KPI (thông quan ≤3 ngày, OTD ≥95%), chi phí thực tế/lô hàng</div><div class="skill-tags"><span class="tag">OTD</span><span class="tag">Customs KPI</span></div></div>
+  </div>
+</div>
+
+<!-- ===== MUA HÀNG ===== -->
+<div class="dept-section" id="mh">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--mh),#9333ea)">
+    <span style="font-size:1.8rem">🛒</span>
+    <h2>Mua hàng / Procurement</h2>
+    <span class="dept-count">11 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--mh)"><div class="skill-name">Chiến lược Mua hàng</div><div class="skill-id">chien-luoc-mua-hang</div><div class="skill-desc">Ma trận Kraljic, spend analysis, annual procurement plan với savings targets</div><div class="skill-tags"><span class="tag">Kraljic</span><span class="tag">Spend Analysis</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mh)"><div class="skill-name">Quản lý Nhà cung cấp</div><div class="skill-id">quan-ly-nha-cung-cap</div><div class="skill-desc">Đánh giá NCC 100 điểm, supplier scorecard định kỳ, AVL, Preferred/Approved</div><div class="skill-tags"><span class="tag">Scorecard</span><span class="tag">AVL</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mh)"><div class="skill-name">Đàm phán Mua hàng</div><div class="skill-id">dam-phan-mua-hang</div><div class="skill-desc">BATNA, 5 chiến thuật đàm phán, phân tích cost breakdown, điều khoản hợp đồng</div><div class="skill-tags"><span class="tag">BATNA</span><span class="tag">Anchoring</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mh)"><div class="skill-name">Quy trình Mua hàng</div><div class="skill-id">quy-trinh-mua-hang</div><div class="skill-desc">PR→PO flow, 3-way matching, approval levels, biểu mẫu PR/PO chuẩn</div><div class="skill-tags"><span class="tag">PR/PO</span><span class="tag">3-Way Match</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mh)"><div class="skill-name">Quản lý Tồn kho (Procurement)</div><div class="skill-id">quan-ly-ton-kho-mua-hang</div><div class="skill-desc">ABC/XYZ matrix, EOQ, Reorder Point, Safety Stock, xử lý hàng chậm</div><div class="skill-tags"><span class="tag">EOQ</span><span class="tag">ROP</span><span class="tag">Safety Stock</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mh)"><div class="skill-name">Đấu thầu & RFQ</div><div class="skill-id">dau-thau-va-rfq</div><div class="skill-desc">RFI/RFQ/RFP/Reverse Auction, bid evaluation matrix, biên bản chấm thầu</div><div class="skill-tags"><span class="tag">RFQ</span><span class="tag">RFP</span><span class="tag">Tender</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mh)"><div class="skill-name">Hợp đồng Mua hàng</div><div class="skill-id">hop-dong-mua-hang</div><div class="skill-desc">8 điều khoản cốt lõi, red flags trong HĐ NCC, contract lifecycle management</div><div class="skill-tags"><span class="tag">Contract</span><span class="tag">Red Flags</span><span class="tag">CLM</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mh)"><div class="skill-name">Mua hàng Bền vững</div><div class="skill-id">mua-hang-ben-vung</div><div class="skill-desc">Supplier ESG scorecard, green procurement policy, conflict minerals, CSDD EU</div><div class="skill-tags"><span class="tag">ESG</span><span class="tag">Green Procurement</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mh)"><div class="skill-name">Mua hàng Dịch vụ</div><div class="skill-id">mua-hang-dich-vu</div><div class="skill-desc">SOW template, indirect procurement, đánh giá RFP dịch vụ, outsourcing governance</div><div class="skill-tags"><span class="tag">SOW</span><span class="tag">Outsourcing</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mh)"><div class="skill-name">Số hóa Mua hàng</div><div class="skill-id">so-hoa-mua-hang</div><div class="skill-desc">4 giai đoạn digital, ERPNext vs Misa so sánh, ROI calculator số hóa</div><div class="skill-tags"><span class="tag">ERPNext</span><span class="tag">e-Procurement</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--mh)"><div class="skill-name">Báo cáo Mua hàng</div><div class="skill-id">bao-cao-mua-hang</div><div class="skill-desc">Savings report, KPI dashboard, quarterly procurement report cho BGĐ</div><div class="skill-tags"><span class="tag">Savings</span><span class="tag">Procurement KPI</span></div></div>
+  </div>
+</div>
+
+<!-- ===== IT ===== -->
+<div class="dept-section" id="it">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--it),#7c3aed)">
+    <span style="font-size:1.8rem">💻</span>
+    <h2>Công nghệ Thông tin</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--it)"><div class="skill-name">Quản lý Hạ tầng IT</div><div class="skill-id">quan-ly-ha-tang-it</div><div class="skill-desc">Network topology, server management, SLA uptime, capacity planning IT</div><div class="skill-tags"><span class="tag">Infrastructure</span><span class="tag">SLA</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--it)"><div class="skill-name">Bảo mật Thông tin</div><div class="skill-id">bao-mat-thong-tin</div><div class="skill-desc">ISO 27001 framework, password policy, access control, incident response</div><div class="skill-tags"><span class="tag">ISO 27001</span><span class="tag">Access Control</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--it)"><div class="skill-name">Sao lưu & Phục hồi Dữ liệu</div><div class="skill-id">sao-luu-phuc-hoi-du-lieu</div><div class="skill-desc">Backup strategy 3-2-1, RTO/RPO, DR plan, test recovery định kỳ</div><div class="skill-tags"><span class="tag">3-2-1 Backup</span><span class="tag">RTO/RPO</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--it)"><div class="skill-name">Hỗ trợ Kỹ thuật IT</div><div class="skill-id">ho-tro-ky-thuat-it</div><div class="skill-desc">Helpdesk process, ticket categories, troubleshooting guide, self-service portal</div><div class="skill-tags"><span class="tag">Helpdesk</span><span class="tag">L1/L2/L3</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--it)"><div class="skill-name">Quản lý Phần mềm & Ứng dụng</div><div class="skill-id">quan-ly-phan-mem-ung-dung</div><div class="skill-desc">Software asset management, license compliance, SaaS cost optimization</div><div class="skill-tags"><span class="tag">SAM</span><span class="tag">License</span><span class="tag">SaaS</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--it)"><div class="skill-name">Quản lý Dự án IT</div><div class="skill-id">quan-ly-du-an-it</div><div class="skill-desc">Agile/Scrum cho SME, project charter IT, sprint planning, UAT process</div><div class="skill-tags"><span class="tag">Agile</span><span class="tag">Scrum</span><span class="tag">UAT</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--it)"><div class="skill-name">Quản lý NCC IT</div><div class="skill-id">quan-ly-nha-cung-cap-it</div><div class="skill-desc">Vendor evaluation IT, SLA negotiation, escrow agreement, exit strategy</div><div class="skill-tags"><span class="tag">SLA</span><span class="tag">Vendor Lock-in</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--it)"><div class="skill-name">Chuyển đổi Số</div><div class="skill-id">chuyen-doi-so</div><div class="skill-desc">Digital maturity assessment, transformation roadmap, change management IT</div><div class="skill-tags"><span class="tag">Digital Maturity</span><span class="tag">Transformation</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--it)"><div class="skill-name">Đào tạo Kỹ năng Số</div><div class="skill-id">dao-tao-ky-nang-so</div><div class="skill-desc">Digital literacy assessment, training plan theo role, tool adoption tracking</div><div class="skill-tags"><span class="tag">Digital Literacy</span><span class="tag">Adoption</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--it)"><div class="skill-name">Báo cáo IT</div><div class="skill-id">bao-cao-it</div><div class="skill-desc">IT dashboard: uptime, ticket SLA, security incidents, IT cost, project status</div><div class="skill-tags"><span class="tag">IT KPI</span><span class="tag">Uptime</span></div></div>
+  </div>
+</div>
+
+<!-- ===== KẾ TOÁN ===== -->
+<div class="dept-section" id="kt">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--kt),#0891b2)">
+    <span style="font-size:1.8rem">📊</span>
+    <h2>Kế toán</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--kt)"><div class="skill-name">Lập Phiếu Thu Chi</div><div class="skill-id">lap-phieu-thu-chi</div><div class="skill-desc">Phiếu thu/chi tiền mặt, phiếu kế toán, TK 111/112 ghi nhận đúng</div><div class="skill-tags"><span class="tag">TK111</span><span class="tag">TK112</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--kt)"><div class="skill-name">Tính Lương & Thưởng</div><div class="skill-id">tinh-luong-thuong</div><div class="skill-desc">Bảng lương theo BLLĐ, tính BHXH/BHYT/BHTN, quyết toán thưởng Tết</div><div class="skill-tags"><span class="tag">BHXH</span><span class="tag">Payroll</span><span class="tag">Tết Bonus</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--kt)"><div class="skill-name">Kê khai Thuế</div><div class="skill-id">ke-khai-thue</div><div class="skill-desc">Kê khai GTGT tháng/quý, TNDN tạm tính, TNCN, quyết toán thuế năm</div><div class="skill-tags"><span class="tag">GTGT</span><span class="tag">TNDN</span><span class="tag">Quyết toán</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--kt)"><div class="skill-name">Quản lý Ngân sách (Kế toán)</div><div class="skill-id">quan-ly-ngan-sach</div><div class="skill-desc">Budget vs Actual tracking, variance report, phân bổ chi phí theo trung tâm</div><div class="skill-tags"><span class="tag">Budget</span><span class="tag">Variance</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--kt)"><div class="skill-name">Quản lý Công nợ (Kế toán)</div><div class="skill-id">quan-ly-cong-no</div><div class="skill-desc">AR/AP aging report, đối chiếu công nợ định kỳ, nhắc nợ tự động</div><div class="skill-tags"><span class="tag">AR/AP</span><span class="tag">Aging</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--kt)"><div class="skill-name">Quản lý Hàng tồn kho (Kế toán)</div><div class="skill-id">quan-ly-hang-ton-kho</div><div class="skill-desc">FIFO/BQGQ/Đích danh, nhập-xuất-tồn, kiểm kê đối chiếu cuối kỳ</div><div class="skill-tags"><span class="tag">FIFO</span><span class="tag">Nhập-Xuất-Tồn</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--kt)"><div class="skill-name">Báo cáo Tài chính (Kế toán)</div><div class="skill-id">bao-cao-tai-chinh</div><div class="skill-desc">B01/B02/B03/B09-DN theo TT200, thuyết minh báo cáo tài chính</div><div class="skill-tags"><span class="tag">TT200</span><span class="tag">B01-B09</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--kt)"><div class="skill-name">Báo cáo Dòng tiền</div><div class="skill-id">bao-cao-dong-tien</div><div class="skill-desc">B03-DN (trực tiếp/gián tiếp), CFO/CFI/CFF phân tích, 13-week cash forecast</div><div class="skill-tags"><span class="tag">CFO/CFI/CFF</span><span class="tag">B03-DN</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--kt)"><div class="skill-name">Phân tích Tài chính (Kế toán)</div><div class="skill-id">phan-tich-tai-chinh</div><div class="skill-desc">Horizontal/vertical analysis, common-size statements, cross-company benchmarks</div><div class="skill-tags"><span class="tag">Horizontal</span><span class="tag">Vertical</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--kt)"><div class="skill-name">Lập Kế hoạch Tài chính (KT)</div><div class="skill-id">lap-ke-hoach-tai-chinh</div><div class="skill-desc">Driver-based planning, scenario analysis, budget calendar năm tài chính</div><div class="skill-tags"><span class="tag">Driver-Based</span><span class="tag">Scenario</span></div></div>
+  </div>
+</div>
+
+<!-- ===== PHÁP CHẾ ===== -->
+<div class="dept-section" id="phap">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--phap),#4b5563)">
+    <span style="font-size:1.8rem">⚖️</span>
+    <h2>Pháp chế</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--phap)"><div class="skill-name">Soạn thảo Hợp đồng</div><div class="skill-id">soan-thao-hop-dong</div><div class="skill-desc">Cấu trúc HĐ theo BLDS 2015, điều khoản cốt lõi, rủi ro phổ biến</div><div class="skill-tags"><span class="tag">BLDS 2015</span><span class="tag">Contract Draft</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--phap)"><div class="skill-name">Kiểm tra Pháp lý Hợp đồng</div><div class="skill-id">kiem-tra-phap-ly-hop-dong</div><div class="skill-desc">Legal review checklist, red flag clauses, negotiation points, amendment process</div><div class="skill-tags"><span class="tag">Legal Review</span><span class="tag">Red Flags</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--phap)"><div class="skill-name">Tuân thủ Pháp luật Lao động</div><div class="skill-id">tuan-thu-phap-luat-lao-dong</div><div class="skill-desc">BLLĐ 2019, Nghị định 145/2020, HĐLĐ, nội quy lao động đăng ký</div><div class="skill-tags"><span class="tag">BLLĐ 2019</span><span class="tag">NĐ145</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--phap)"><div class="skill-name">Tuân thủ Thuế & Kế toán</div><div class="skill-id">tuan-thu-thue-va-ke-toan</div><div class="skill-desc">Compliance calendar thuế, rủi ro thuế phổ biến, xử lý thanh tra</div><div class="skill-tags"><span class="tag">Tax Compliance</span><span class="tag">Thanh tra</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--phap)"><div class="skill-name">Bảo vệ Dữ liệu Cá nhân</div><div class="skill-id">bao-ve-du-lieu-ca-nhan</div><div class="skill-desc">NĐ13/2023, phân loại dữ liệu, consent management, DPA template</div><div class="skill-tags"><span class="tag">NĐ13/2023</span><span class="tag">PDPA</span><span class="tag">Consent</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--phap)"><div class="skill-name">Bảo vệ Quyền SHTT</div><div class="skill-id">bao-ve-quyen-so-huu-tri-tue</div><div class="skill-desc">Luật SHTT 2022, nhãn hiệu/sáng chế/bản quyền, IP strategy cho SME</div><div class="skill-tags"><span class="tag">Luật SHTT</span><span class="tag">IP Strategy</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--phap)"><div class="skill-name">Xử lý Tranh chấp</div><div class="skill-id">xu-ly-tranh-chap</div><div class="skill-desc">Thương lượng → Hòa giải → Trọng tài (VIAC) → Tòa án, cost-benefit analysis</div><div class="skill-tags"><span class="tag">VIAC</span><span class="tag">Mediation</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--phap)"><div class="skill-name">Thành lập Doanh nghiệp</div><div class="skill-id">thanh-lap-doanh-nghiep</div><div class="skill-desc">Các loại hình DN, thủ tục đăng ký, điều lệ công ty, cơ cấu cổ phần</div><div class="skill-tags"><span class="tag">CTCP</span><span class="tag">TNHH</span><span class="tag">Điều lệ</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--phap)"><div class="skill-name">Quản lý Rủi ro Pháp lý</div><div class="skill-id">quan-ly-rui-ro-phap-ly</div><div class="skill-desc">Legal risk register, compliance matrix, legal audit checklist, monitoring</div><div class="skill-tags"><span class="tag">Legal Risk</span><span class="tag">Compliance</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--phap)"><div class="skill-name">Báo cáo Pháp chế</div><div class="skill-id">bao-cao-phap-che</div><div class="skill-desc">Legal KPI, litigation tracker, compliance status report cho BGĐ</div><div class="skill-tags"><span class="tag">Legal KPI</span><span class="tag">Compliance Report</span></div></div>
+  </div>
+</div>
+
+<!-- ===== ADMIN ===== -->
+<div class="dept-section" id="admin">
+  <div class="dept-header" style="background:linear-gradient(135deg,var(--admin),#e11d48)">
+    <span style="font-size:1.8rem">🏢</span>
+    <h2>Hành chính / Admin</h2>
+    <span class="dept-count">10 skills</span>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card" style="border-top-color:var(--admin)"><div class="skill-name">Quản lý Văn phòng</div><div class="skill-id">quan-ly-van-phong</div><div class="skill-desc">Tiêu chuẩn văn phòng, quản lý không gian làm việc, văn phòng phẩm</div><div class="skill-tags"><span class="tag">Office Mgmt</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--admin)"><div class="skill-name">Quản lý Văn bản</div><div class="skill-id">quan-ly-van-ban</div><div class="skill-desc">Hệ thống số hóa, lưu trữ, phân loại bảo mật, workflow văn bản đến/đi</div><div class="skill-tags"><span class="tag">Document Mgmt</span><span class="tag">Records</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--admin)"><div class="skill-name">Quản lý Tài sản</div><div class="skill-id">quan-ly-tai-san</div><div class="skill-desc">Đăng ký tài sản, bàn giao, khấu hao, kiểm kê định kỳ, thanh lý</div><div class="skill-tags"><span class="tag">Asset Register</span><span class="tag">Khấu hao</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--admin)"><div class="skill-name">Quản lý Lịch họp</div><div class="skill-id">quan-ly-lich-hop</div><div class="skill-desc">Lịch meeting chuẩn, booking room, agenda + biên bản họp, follow-up</div><div class="skill-tags"><span class="tag">Meeting Mgmt</span><span class="tag">Minutes</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--admin)"><div class="skill-name">Quản lý Hợp đồng (Admin)</div><div class="skill-id">quan-ly-hop-dong</div><div class="skill-desc">Contract register, alert gia hạn, lưu trữ, thống kê hợp đồng theo loại</div><div class="skill-tags"><span class="tag">Contract Register</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--admin)"><div class="skill-name">Nội quy An toàn</div><div class="skill-id">noi-quy-an-toan</div><div class="skill-desc">Nội quy PCCC, an ninh văn phòng, emergency plan, drill checklist</div><div class="skill-tags"><span class="tag">PCCC</span><span class="tag">Emergency</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--admin)"><div class="skill-name">Mua sắm & Đấu thầu (Admin)</div><div class="skill-id">mua-sam-va-dau-thau</div><div class="skill-desc">Mua sắm hành chính, lấy báo giá 3 bên, duyệt chi admin, cost control</div><div class="skill-tags"><span class="tag">Admin Procurement</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--admin)"><div class="skill-name">Tổ chức Sự kiện (Admin)</div><div class="skill-id">to-chuc-su-kien</div><div class="skill-desc">Internal event checklist, team building, year-end party, offsite planning</div><div class="skill-tags"><span class="tag">Internal Events</span><span class="tag">Team Building</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--admin)"><div class="skill-name">CSKH Nội bộ (Admin)</div><div class="skill-id">cham-soc-khach-hang-noi-bo</div><div class="skill-desc">Internal service desk, satisfaction survey nội bộ, SLA dịch vụ hành chính</div><div class="skill-tags"><span class="tag">Internal SLA</span><span class="tag">Service Desk</span></div></div>
+    <div class="skill-card" style="border-top-color:var(--admin)"><div class="skill-name">Báo cáo Hành chính</div><div class="skill-id">bao-cao-hanh-chinh</div><div class="skill-desc">Admin KPI: chi phí hành chính, asset utilization, sự kiện nội bộ, compliance</div><div class="skill-tags"><span class="tag">Admin KPI</span><span class="tag">Cost Control</span></div></div>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<footer>
+  <p>📚 Claude SME Vietnam Skill Library — 165 Skills · 16 Phòng ban · Được tối ưu cho doanh nghiệp vừa và nhỏ Việt Nam</p>
+  <p style="margin-top:8px;opacity:.6">Tham chiếu pháp lý: TT200/2014, BLLĐ 2019, NĐ123/2020, NĐ13/2023, Luật SHTT 2022, BLDS 2015</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var links=document.querySelectorAll('nav.dept-nav a');
+  function setActive(){
+    var scrollY=window.scrollY+80;
+    var sections=document.querySelectorAll('[id]');
+    var current='';
+    sections.forEach(function(s){if(s.offsetTop<=scrollY)current=s.id});
+    links.forEach(function(a){
+      a.classList.remove('active');
+      if(a.getAttribute('href')==='#'+current)a.classList.add('active');
+    });
+  }
+  window.addEventListener('scroll',setActive);
+  links.forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      var target=document.querySelector(this.getAttribute('href'));
+      if(target){window.scrollTo({top:target.offsetTop-60,behavior:'smooth'});}
+    });
+  });
+});
+</script>
+</body>
+</html>
